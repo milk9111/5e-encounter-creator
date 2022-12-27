@@ -1,0 +1,22 @@
+.hoverable:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.table-hover tbody tr:hover {
+    color: #000000;
+    background-color: rgba(0, 0, 0, 0.027);
+}
+
+.table th,.table td {
+    border-right: none;
+    border-left: none;
+}
+
+.table td:first-child, .table th:first-child {
+    border-left: 1px solid #dee2e6;
+}
+
+.table td:last-child, .table th:last-child {
+    border-right: 1px solid #dee2e6;
+}
