@@ -1,5 +1,6 @@
 
-const partyPresets = [
+// only one object can have the 'default' key
+const PartyPresets = [
     {
         "count": 4,
         "level": 6,
@@ -15,12 +16,33 @@ const partyPresets = [
     }
 ];
 
+// has an optional 'label' to override the header
+const Headers = [
+    {
+        "key": "Name"
+    }, 
+    {
+        "key": "CR"
+    }, 
+    {
+        "key": "AC"
+    },
+    {
+        "key": "HP"
+    },
+    {
+        "key": "Speeds",
+        "label": "Speed"
+    }
+];
+
+const div = document.querySelector("#infinite-table");
+
 let monsters = [];
 
 function dropdownLoader() {
-    
-    for (let i = 0; i < partyPresets.length; i++) {
-        preset = partyPresets[i]; 
+    for (let i = 0; i < PartyPresets.length; i++) {
+        let preset = PartyPresets[i]; 
 
         let selected = "selected"
         if (!preset.default) {
@@ -32,17 +54,31 @@ function dropdownLoader() {
 }
 
 function monstersLoader() {
+    $.when(
+        $.get("data/monsters_official.csv"),
+        $.get("data/monsters_homebrew.csv")
+    ).done((official, homebrew) => {
+        let officialMonsters = $.csv.toObjects(official[0]);
+        let homebrewMonsters = $.csv.toObjects(homebrew[0]);
 
+        monsters = officialMonsters.concat(homebrewMonsters);
+
+        Headers.forEach((header) => {
+            $("#monsterTableHeader").append(`<th>${header.label ?? header.key}</th>`)
+        })
+        
+        monsters.forEach((monster) => {
+            let row = "";
+            Headers.forEach((header) => {
+                row += `<td>${monster[header.key] ?? ""}</td>`
+            })
+
+            $("#monsterTableBody").append(`<tr>${row}</tr>`)
+        })
+    });
 }
 
 $(() => {
     dropdownLoader();
-
-    $.get("data/monsters_official.csv", function( CSVdata) {
-        console.log(CSVdata);
-        // CSVdata is populated with the file contents...
-        // ...ready to be converted into an Array
-         data = $.csv.toObjects(CSVdata);
-         console.log(data)
-     });
+    monstersLoader();
 });

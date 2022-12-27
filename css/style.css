@@ -8,15 +8,25 @@
     background-color: rgba(0, 0, 0, 0.027);
 }
 
-.table th,.table td {
+#infinite-table {
+    height: 395px;
+    border: 1px solid #dee2e6;
+    overflow: auto;
+}
+
+#infinite-table td, #infinite-table th {
+    border-bottom: 1px solid #dee2e6;
+    border-top: none;
     border-right: none;
     border-left: none;
 }
 
-.table td:first-child, .table th:first-child {
-    border-left: 1px solid #dee2e6;
+#infinite-table tr:last-child td {
+    border-bottom: none;
 }
 
-.table td:last-child, .table th:last-child {
-    border-right: 1px solid #dee2e6;
+#infinite-table thead th { 
+    position: sticky; 
+    top: 0; 
+    z-index: 1; 
 }
