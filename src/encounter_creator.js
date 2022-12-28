@@ -25,14 +25,11 @@ const Headers = [
         "key": "CR"
     }, 
     {
-        "key": "AC"
+        "key": "Type"
     },
     {
-        "key": "HP"
-    },
-    {
-        "key": "Speeds",
-        "label": "Speed"
+        "key": "Font",
+        "label": "Source"
     }
 ];
 
@@ -55,27 +52,67 @@ function dropdownLoader() {
 
 function monstersLoader() {
     $.when(
-        $.get("data/monsters_official.csv"),
         $.get("data/monsters_homebrew.csv")
-    ).done((official, homebrew) => {
-        let officialMonsters = $.csv.toObjects(official[0]);
-        let homebrewMonsters = $.csv.toObjects(homebrew[0]);
+    ).done((homebrew) => {
+        //let officialMonsters = $.csv.toObjects(official[0]);
+        console.log(homebrew);
+        let monsters = $.csv.toObjects(homebrew);
+        console.log(monsters.length);
 
-        monsters = officialMonsters.concat(homebrewMonsters);
+        //monsters = officialMonsters.concat(homebrewMonsters);
 
-        Headers.forEach((header) => {
+        /*Headers.forEach((header) => {
             $("#monsterTableHeader").append(`<th>${header.label ?? header.key}</th>`)
-        })
+        });
         
         monsters.forEach((monster) => {
+            if (isNaN(monster["CR"])) {
+                return;
+            }
+
             let row = "";
             Headers.forEach((header) => {
-                row += `<td>${monster[header.key] ?? ""}</td>`
+                row += `<td>${formatNumber(monster[header.key] ?? "")}</td>`
             })
 
             $("#monsterTableBody").append(`<tr>${row}</tr>`)
-        })
+        });*/
+
+        let headers = [];
+        Headers.forEach((header) => {
+            headers.push({title: header.label ?? header.key, data: header.key});
+        });
+
+        let data = [];
+        monsters.forEach((monster) => {
+            if (isNaN(monster["CR"])) {
+                return;
+            }
+
+            let m = {};
+            Headers.forEach((header) => {
+                m[header.key] = formatNumber(monster[header.key] ?? "");
+            });
+
+            data.push(m);
+        });
+
+        $("#dataTable").DataTable({
+            data: data,
+            columns: headers,
+            scrollY: "50vh",
+            scrollCollapse: true,
+            paging: false
+        });
     });
+}
+
+function formatNumber(val) {
+    if (isNaN(val)) {
+        return val;
+    }
+
+    return parseFloat(val).toFixed(2).replace(/\.00$/, "");
 }
 
 $(() => {

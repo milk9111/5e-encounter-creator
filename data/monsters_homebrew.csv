@@ -1,4 +1,4 @@
-Name,Size,Type,Align.,AC,HP,Speeds,STR,DEX,CON,INT,WIS,CHA,CR,Font,Author,Sav. Throws,Skills,WRI,Senses,Languages,Additional
+Name,Size,Type,Align,AC,HP,Speeds,STR,DEX,CON,INT,WIS,CHA,CR,Font,Author,Sav. Throws,Skills,WRI,Senses,Languages,Additional
 “Size-of-a-Field” Mouse,Gargantuan ,Monstrosity,,,,,,,,,,,7.00,https://www.reddit.com/r/monsteraday/comments/6juhzt/day_87_sizeofafield_mouse/,1d6Adventurers,,,,,,
 Aaracokra Captain,Medium,Humanoid,NG,16,65,"20, fly 50",13,18,14,13,16,15,3.00,Monster Module (★★★★),u/Jonoman3000,None,"Athletics, Perception",None,Normal,"Aaracokra, Own, Auran",Dive Attack
 Aaracokra Priest of Aerdrie,Medium,Humanoid,NG,14,71,"20, fly 50",9,15,14,13,20,14,8.00,Monster Module (★★★★),u/Jonoman3000,"WIS, CHA","Perception, Insight, History, Religion",None,Normal,"Aaracokra, Own, Auran","Bleesing of Aerdrie, Innate Spellcasting, Normal Spellcasting"

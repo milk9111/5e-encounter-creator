@@ -1,4 +1,4 @@
-Name,Size,Type,Align.,AC,HP,Speeds,STR,DEX,CON,INT,WIS,CHA,Sav. Throws,Skills,WRI,Senses,Languages,CR,Additional,Font,Additional Info,Author
+Name,Size,Type,Align,AC,HP,Speeds,STR,DEX,CON,INT,WIS,CHA,Sav. Throws,Skills,WRI,Senses,Languages,CR,Additional,Font,Additional Info,Author
 Aarakocra,Medium,Humanoid,NG,12,13,"20, 50 fly",10,14,10,11,12,11,None,Perception,None,Normal,Auran,0.25,Dive Attack,Monster Manual,,Wizards of the Coast
 Aboleth,Large,Aberration,LE,17,135,"10, swim 40",21,9,15,18,15,18,"CON, INT, WIS","History, Perception",None,Darkvision 120,"Deep Speech, Telepathy 120",10.00,"Amphibious,  Mucous Cloud, Probing Telepathy, Legendary, Lair",Monster Manual,,Wizards of the Coast
 Albino Dwarf Warrior,Medium,Humanoid (Dwarf),ANY,13,30,25,13,13,17,12,14,11,None,"Perception, Stealth, Survival",Poisonres,Darkvision 60,"Common, Dwarvish",0.25,Dwarven Resilience,Tomb of Annihilation,,Wizards of the Coast
