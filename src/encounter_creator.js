@@ -1,4 +1,24 @@
 
+// has an optional 'label' to override the output
+const CRMap = {
+    "0": {
+        "xp": 10
+    },
+    "0.13": {
+        "label": "1⁄8",
+        "xp": 25
+    },
+    "0.25": {
+        "label": "&frac14;",
+        "xp": 50
+    },
+    "0.5": {
+        "label": "&frac12;",
+        "xp": 100
+    },
+    "1": {},
+}
+
 // only one object can have the 'default' key
 const PartyPresets = [
     {
@@ -19,23 +39,32 @@ const PartyPresets = [
 // has an optional 'label' to override the header
 const Headers = [
     {
-        "key": "Name"
+        "key": "Name",
+        "attr": {
+            "width": "40px"
+        }
     }, 
     {
         "key": "CR"
     }, 
     {
-        "key": "Type"
+        "key": "Type",
+        "attr": {
+            "width": "40px"
+        }
     },
     {
         "key": "Font",
-        "label": "Source"
+        "label": "Source",
+        "attr": {
+            "width": "40px"
+        }
     }
 ];
 
-const div = document.querySelector("#infinite-table");
-
 let monsters = [];
+
+let selectedMonsters = [];
 
 function dropdownLoader() {
     for (let i = 0; i < PartyPresets.length; i++) {
@@ -54,12 +83,21 @@ function monstersLoader() {
     $.when(
         $.get("data/monsters_homebrew.csv")
     ).done((homebrew) => {
-        let monsters = $.csv.toObjects(homebrew);
+        monsters = $.csv.toObjects(homebrew);
 
         let headers = [];
-        Headers.forEach((header) => {
+        let headersAttrs = [];
+        for (let i = 0; i < Headers.length; i++) {
+            let header = Headers[i];
             headers.push({title: header.label ?? header.key, data: header.key});
-        });
+            if (header.attr) {
+                header.attr["targets"] = i;
+                headersAttrs.push(header.attr);
+            }
+        }
+
+        headers.push({title: "", data: "t"});
+        headersAttrs.push({targets: headers.length-1, orderable: false, searchable: false})
 
         let data = [];
         monsters.forEach((monster) => {
@@ -80,17 +118,45 @@ function monstersLoader() {
                 
             });
 
+            m["t"] = `<a class="add" title="Add" data-toggle="tooltip"><i class="fas fa-plus-circle"></i></a>`
+
             data.push(m);
         });
 
         $("#dataTable").DataTable({
             data: data,
             columns: headers,
+            columnDefs: headersAttrs,
             scrollY: "50vh",
             scrollCollapse: true,
-            paging: false
+            paging: false,
+            fixedHeader: {
+                header: true
+            }
         });
     });
+}
+
+function addToSelectedMonsters(monster) {
+    monster["id"] = Math.floor(Math.random() * Date.now()).toString(16);
+    selectedMonsters.push(monster);
+
+    $("#selectedMonsters").append(`
+    <tr>
+        <td>${monster.Name}</td>
+        <td>CR ${monster.CR}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    `)
+}
+
+function removeFromSelectedMonsters(monster) {
+
+}
+
+function calculateMonsterXPFromCR(cr) {
+
 }
 
 function formatNumber(val) {
@@ -104,4 +170,8 @@ function formatNumber(val) {
 $(() => {
     dropdownLoader();
     monstersLoader();
+
+    $(document).on("click", ".delete", function(){
+        $(this).parents("tr").remove();
+    });
 });

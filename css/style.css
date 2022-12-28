@@ -8,30 +8,18 @@
     background-color: rgba(0, 0, 0, 0.027);
 }
 
-#infinite-table tr {
-    border: none;
+.delete {
+    color: #E34724;
 }
 
-/*
-#infinite-table {
-    height: 395px;
-    border: 1px solid #dee2e6;
-    overflow: auto;
+.delete:hover {
+    color: #a8351c;
 }
 
-#infinite-table td, #infinite-table th {
-    border-bottom: 1px solid #dee2e6;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+.add {
+    color: #149664;
 }
 
-#infinite-table tr:last-child td {
-    border-bottom: none;
+.add:hover {
+    color: #126e4b;
 }
-
-#infinite-table thead th { 
-    position: sticky; 
-    top: 0; 
-    z-index: 1; 
-}*/
