@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-7 p-0">
                 <div class="table-responsive">
-                    <table id="dataTable" class="row-border hover" style="width:100%;">
+                    <table id="dataTable" class="row-border hover" width="100%" cellspacing="0">
                         <thead>
                           <tr>
                             <!--Added dynamically on startup-->
@@ -57,27 +57,18 @@
                 </div>
             </div>
             
-            <div class="col-5 pl-5">
-                <div class="row" style="display: inline-block;">
-                    <label for="difficultyTotal" class="col-form-label font-weight-bold">Difficulty:</label>
-                    <p id="difficultyTotal" class="text-monospace">Deadly (14000 XP Adj.)</p>
-                </div>
+            <div class="col-5 pl-4">
+                <label for="partyBudget" class="font-weight-bold">Party XP Budget:</label>
+                <div id="partyBudget" class="text-monospace" style="display: inline-block; padding-bottom: 1rem;"></div>
+                <div class="row"></div>
+                <label for="difficultyTotal" class="font-weight-bold">Difficulty:</label>
+                <div id="difficultyTotal" class="text-monospace"></div>
+                
                 <div class="row pt-2">
                     <div class="col p-0">
                         <table class="table">
                             <tbody id="selectedMonsters">
-                                <tr>
-                                    <td>Aaracokra Captain</td>
-                                    <td>CR </td>
-                                    <td>700 XP</td>
-                                    <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fas fa-minus-circle"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>Aaracokra Priest of Aerdrie</td>
-                                    <td>CR 8</td>
-                                    <td>3,900 XP</td>
-                                    <td><a class="add" title="Add" data-toggle="tooltip"><i class="fas fa-plus-circle"></i></a></td>
-                                </tr>
+                               <!--Added dynamically when selecting monsters--> 
                             </tbody>
                         </table>
                     </div>
