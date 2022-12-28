@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -45,19 +46,22 @@
                 <div class="table-responsive">
                     <table id="dataTable" class="row-border hover">
                         <thead>
-                          <tr id="monsterTableHeader">
+                          <tr>
                             <!--Added dynamically on startup-->
                           </tr>
                         </thead>
-                        <tbody id="monsterTableBody">
+                        <tbody>
                           <!--Added dynamically on startup-->
                         </tbody>
                     </table>
                 </div>
             </div>
             
-            <div class="col-3">
-
+            <div class="col-3 pl-5">
+                <div class="row" style="display: inline-block;">
+                    <label for="difficultyTotal" class="col-form-label font-weight-bold">Difficulty:</label>
+                    <p id="difficultyTotal" class="text-monospace">Deadly (14000 xp)</p>
+                </div>
             </div>
         </div>
     </div>

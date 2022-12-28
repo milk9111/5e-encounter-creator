@@ -54,29 +54,7 @@ function monstersLoader() {
     $.when(
         $.get("data/monsters_homebrew.csv")
     ).done((homebrew) => {
-        //let officialMonsters = $.csv.toObjects(official[0]);
-        console.log(homebrew);
         let monsters = $.csv.toObjects(homebrew);
-        console.log(monsters.length);
-
-        //monsters = officialMonsters.concat(homebrewMonsters);
-
-        /*Headers.forEach((header) => {
-            $("#monsterTableHeader").append(`<th>${header.label ?? header.key}</th>`)
-        });
-        
-        monsters.forEach((monster) => {
-            if (isNaN(monster["CR"])) {
-                return;
-            }
-
-            let row = "";
-            Headers.forEach((header) => {
-                row += `<td>${formatNumber(monster[header.key] ?? "")}</td>`
-            })
-
-            $("#monsterTableBody").append(`<tr>${row}</tr>`)
-        });*/
 
         let headers = [];
         Headers.forEach((header) => {
@@ -91,7 +69,15 @@ function monstersLoader() {
 
             let m = {};
             Headers.forEach((header) => {
-                m[header.key] = formatNumber(monster[header.key] ?? "");
+                if (header.key === "Font" && monster[header.key].startsWith("http")) {
+                    let re = new RegExp("^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)");
+                    let hostname = monster[header.key].match(re);
+
+                    m[header.key] = `<a target="_blank" href="${monster[header.key]}">${hostname[1]} <i style="font-size: x-small;" class="fas fa-external-link-alt"></i></a>`
+                } else {
+                    m[header.key] = formatNumber(monster[header.key] ?? "");
+                }
+                
             });
 
             data.push(m);
