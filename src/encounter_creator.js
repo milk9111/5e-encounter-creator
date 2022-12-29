@@ -115,6 +115,8 @@ const Headers = [
     }
 ];
 
+let allowAnimations = false;
+
 let monsters = {};
 
 let selectedMonsters = [];
@@ -213,6 +215,9 @@ function monstersLoader() {
             scrollX: true,
             scrollCollapse: true,
             paging: false,
+            initComplete: () => {
+                allowAnimations = true;
+            }
         });
     });
 }
@@ -224,10 +229,18 @@ function addToSelectedMonsters(id) {
 
     $("#selectedMonsters").append(`
     <tr>
-        <td>${monster.Name}</td>
+        <td><div class="row" style="padding-right: 10px;">
+        <div class="col-2 pr-0 my-auto">
+            <a style="text-decoration: none;" class="delete" title="Delete" data-toggle="tooltip" name="${monster.id}">
+                <i class="fas fa-minus-circle"></i>
+            </a>
+        </div> 
+        <div class="col-10">
+            <p style="margin-bottom: 0;">${monster.Name}</p>
+        </div>
+    </div></td>
         <td>CR ${monster.CR}</td>
         <td>${CRMap[monster.CR].xp} XP</td>
-        <td><a class="delete" title="Delete" data-toggle="tooltip" name="${monster.id}"><i class="fas fa-minus-circle"></i></a></td>
     </tr>
     `)
 }
@@ -254,15 +267,36 @@ function calculatePartyBudgets(party) {
 
     partyBudgets = [easy, medium, hard, deadly];
     $("#partyBudget").html(`<span style="color: green;">${easy} XP</span> | <span style="color: gray;">${medium} XP</span> | <span style="color: rgb(201, 151, 15);">${hard} XP</span> | <span style="color: rgb(221, 18, 18);">${deadly} XP</span>`)
+    
+    if (!allowAnimations) {
+        return;
+    }
+
+    let difficultyTiers = $("label[for='partyBudget'],#partyBudget span");
+    for (let i = 0; i < difficultyTiers.length; i++) {
+        $(difficultyTiers[i]).css('font-weight', 'italic');
+        let originalColor = $(difficultyTiers[i]).css("color");
+        $(difficultyTiers[i]).delay(i * 200).animate({
+            color: "#0000FF"
+          }, 500 , function() {
+            $(difficultyTiers[i]).animate(
+                {
+                    color: originalColor
+                }, 500
+            );
+        });
+    }
 }
 
 function calculateDifficultyTotal() {
+    if (selectedMonsters.length === 0) {
+        $("#difficultyTotal").html("");
+        return;
+    }
+
     let difficultyTotal = 0; 
     selectedMonsters.forEach((id) => {
-        let monster = monsters[id];
-        console.log(monster.CR);
-        console.log(CRMap);
-        difficultyTotal += CRMap[monster.CR].xp;
+        difficultyTotal += CRMap[monsters[id].CR].xp;
     });
 
     let multiplier = 1;
@@ -286,10 +320,7 @@ function calculateDifficultyTotal() {
         multiplier = 4;
     }
 
-    console.log(difficultyTotal);
-    console.log(multiplier);
     difficultyTotal = Math.round(difficultyTotal * multiplier);
-    console.log(difficultyTotal);
     let difficultyTotalParsed = parseFloat(difficultyTotal).toFixed(2).replace(/\.00$/, "");
 
     let diff = `<span style="color: green">Easy (${difficultyTotalParsed} XP Adj.)</span>`;
@@ -335,5 +366,6 @@ $(() => {
 
     $('select').on('change', function() {
         calculatePartyBudgets(PartyPresets[this.value]);
+        calculateDifficultyTotal();
     });
 });
