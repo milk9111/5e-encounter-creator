@@ -4,6 +4,30 @@ html, body {
     margin: 0;
 }
 
+.card-header .title {
+    font-size: 17px;
+    color: #000;
+}
+
+.card-header .accicon {
+  float: right;
+  font-size: 20px;  
+  width: 1.2em;
+}
+
+.card-header{
+  cursor: pointer;
+  border: 1px solid #ddd;
+}
+
+.card {
+    border: none;
+}
+
+.card-header:not(.collapsed) .rotate-icon {
+  transform: rotate(180deg);
+}
+
 .hoverable:hover {
     cursor: pointer;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -53,4 +77,13 @@ html, body {
     color: #126e4b;
 }
 
+@media screen and (min-width: 576px) {
+    .mobile-visible {
+        display: none;
+    }
+
+    .card, .card-body, .collapse {
+        all: initial;
+    }
+}
 
