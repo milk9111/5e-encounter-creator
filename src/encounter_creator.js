@@ -190,16 +190,13 @@ function monstersLoader() {
 
             headersAttrs[0].render = function(d, type, row, meta) {
                 return `
-                <div class="row" style="padding-right: 10px;">
-                    <div class="col-2 pr-0 my-auto">
-                        <a style="text-decoration: none;" class="add" title="Add" data-toggle="tooltip" name="${row.id}">
-                            <i class="fas fa-plus-circle"></i>
-                        </a>
-                    </div> 
-                    <div class="col-10">
-                        <p style="margin-bottom: 0;">${d}</p>
-                    </div>
-                </div>`;
+                <div class="add-holder">
+                    <a class="add" title="Add" data-toggle="tooltip" name="${row.id}">
+                        <i class="fas fa-plus-circle"></i>
+                    </a>
+                    <span>${d}</span>
+                </div>                
+                `;
             }
 
             monsters[monster.id] = monster;
@@ -215,6 +212,7 @@ function monstersLoader() {
             scrollX: true,
             scrollCollapse: true,
             paging: false,
+            "dom": "frt",
             initComplete: () => {
                 allowAnimations = true;
             }
@@ -229,15 +227,11 @@ function addToSelectedMonsters(id) {
 
     $("#selectedMonsters").append(`
     <tr>
+        <td><a style="text-decoration: none;" class="delete" title="Delete" data-toggle="tooltip" name="${monster.id}">
+        <i class="fas fa-minus-circle"></i>
+    </a></td>
         <td><div class="row" style="padding-right: 10px;">
-        <div class="col-2 pr-0 my-auto">
-            <a style="text-decoration: none;" class="delete" title="Delete" data-toggle="tooltip" name="${monster.id}">
-                <i class="fas fa-minus-circle"></i>
-            </a>
-        </div> 
-        <div class="col-10">
-            <p style="margin-bottom: 0;">${monster.Name}</p>
-        </div>
+        <p style="margin-bottom: 0;">${monster.Name}</p>
     </div></td>
         <td>CR ${monster.CR}</td>
         <td>${CRMap[monster.CR].xp} XP</td>
