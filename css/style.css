@@ -83,7 +83,8 @@ html, body {
     }
 
     .card, .card-body, .collapse {
-        all: initial;
+        border: none;
+        margin: none;
     }
 }
 
