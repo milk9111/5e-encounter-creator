@@ -97,7 +97,8 @@ const Headers = [
     {
         "key": "CR",
         "attr": {
-            "width": 5
+            "width": 5,
+            "type": "num"
         }
     }, 
     {
@@ -111,6 +112,12 @@ const Headers = [
         "label": "Source",
         "attr": {
             "width": 60
+        }
+    },
+    {
+        "key": "Author",
+        "attr": {
+            "visible": false
         }
     }
 ];
@@ -142,6 +149,10 @@ function dropdownLoader() {
     }
 
     calculatePartyBudgets(selectedParty);
+}
+
+let onCoreOnly = () => {
+    console.log("clicked");
 }
 
 function monstersLoader() {
@@ -361,5 +372,31 @@ $(() => {
     $('select').on('change', function() {
         calculatePartyBudgets(PartyPresets[this.value]);
         calculateDifficultyTotal();
+    });
+
+    $("#wotcOnly").change(() => {
+        let search = "";
+
+        console.log($(this));
+        let checked = false; 
+        if ($("#wotcOnly").is(":checked")) {
+            search = "Wizards of the Coast";
+            checked = true;
+        }
+
+        let i = 0; 
+        for (; i < Headers.length; i++) {
+            if (Headers[i].key == "Author") {
+                break;
+            }
+        }
+
+        $('#dataTable')
+        .DataTable()
+        .column(i)
+        .search(
+            search
+        )
+        .draw();
     });
 });
