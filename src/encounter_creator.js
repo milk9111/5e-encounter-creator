@@ -377,7 +377,6 @@ $(() => {
     $("#wotcOnly").change(() => {
         let search = "";
 
-        console.log($(this));
         let checked = false; 
         if ($("#wotcOnly").is(":checked")) {
             search = "Wizards of the Coast";
